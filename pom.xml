@@ -85,7 +85,7 @@
 
         <tomcat-port.version>8001</tomcat-port.version>
         <tomcat-uri-encoding.version>UTF-8</tomcat-uri-encoding.version>
-        <tomcat-path.version>/</tomcat-path.version>
+        <tomcat-path.version>/mss</tomcat-path.version>
         <jetty-port.version>8080</jetty-port.version>
         <jetty-path.version>/</jetty-path.version>
         <!--其他变量 end-->
@@ -422,7 +422,7 @@
                     <path>${tomcat-path.version}</path>
                     <port>${tomcat-port.version}</port>
                     <uriEncoding>${tomcat-uri-encoding.version}</uriEncoding>
-                    <url>http://localhost:8080/manager/text</url>
+                    <url>http://localhost:8001/manager/text</url>
                     <server>tomcat7</server>
                     <username>admin</username>
                     <password>admin</password>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
+
+    <!-- 配置数据源 -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+
+        <!-- 配置初始化大小、最小、最大 -->
+        <property name="initialSize" value="3" />
+        <!-- 最大空闲时，当经过一个高峰之后，连接池可以将一些用不到的连接释放，一直减少到maxIdle为止 -->
+        <property name="minIdle" value="5" />
+        <!-- 连接池的最大值 -->
+        <property name="maxActive" value="20" />
+        <!-- 配置获取连接等待超时的时间 -->
+        <property name="maxWait" value="60000" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="60000" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="300000" />
+
+        <property name="validationQuery" value="SELECT 'x'" />
+        <property name="testWhileIdle" value="true" />
+        <property name="testOnBorrow" value="false" />
+        <property name="testOnReturn" value="false" />
+
+    </bean>
+
+    <!-- 使用一个数据源MySQL -->
+
+    <!-- 配置SqlSessionFactoryBean -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 加载核心配置文件 -->
+        <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+        <!-- 加载映射文件 -->
+        <property name="mapperLocations" value="classpath*:/com/**/model/*Mapper.xml"/>
+        <!-- 引用数据源 -->
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <!-- 注意:如果是SQLID的方式 结束 -->
+
+    <!-- 接口方式[不要去写ID] -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 基础包,使用这样方式,比较省事 -->
+        <property name="basePackage">
+            <value>
+                com.**.dao
+            </value>
+        </property>
+        <!-- 这个是注意的地方 因为org.mybatis.spring.mapper.MapperScannerConfigurer
+            下的注入的setSqlSessionFactoryBeanName(String sqlSessionFactoryName) 一定要注意是一个字符串
+            字符串 字符串 -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+
+
+</beans>

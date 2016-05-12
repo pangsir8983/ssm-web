@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="true" scanPeriod="1000 seconds">
+	<timestamp key="date" datePattern="yyyyMMdd" />
+	<!-- 控制台输出 -->
+	<appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %level %c:%L - %msg%n</pattern>
+			<charset>UTF-8</charset><!-- encoder 可以指定字符集，对于中文输出有意义 -->
+		</encoder>
+	</appender>
+	<!-- 输出内容到文件 -->
+	<appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>TRACE</level>
+		</filter>
+		<File>d:/logs/pangsir.log</File>
+		<!-- 可让每天产生一个日志文件，最多 10 个，自动回滚 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>
+				d:/logs/pangsir.%d{yyyy-MM-dd}.log
+			</FileNamePattern>
+			<minIndex>1</minIndex>
+			<!-- keep 1 days worth of history -->
+			<MaxHistory>10</MaxHistory>
+		</rollingPolicy>
+		<!-- 下面这段注释的代码可以在日志文件超过 5MB 时进行归档，并且归档文件后缀只要是 .zip 或 .gz 就会自动压缩日志归档 -->
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>5MB</maxFileSize>
+		</triggeringPolicy>
+		<encoder>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss} %level %c:%L - %msg%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	<!-- 输出到控制台和文件，可定义更多的 Appender -->
+	<!-- 打印级别，大小写无关：TRACE, DEBUG, INFO, WARN, ERROR, ALL 和  OFF 默认是DEBUG -->
+	<root level="ERROR">
+		<appender-ref ref="Console" />
+		<appender-ref ref="File" />
+	</root>
+	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+	<logger name="org.springframework" level="ERROR" />
+	<logger name="org.apache" level="WARN"/>
+	<!-- MyBatis执行显示SQL语句简单配置 -->
+	<logger name="com.pangsir.app" level="TRACE" />
+</configuration>
