@@ -54,7 +54,7 @@ public class SetHelper {
         return setA.containsAll(setB);
     }
 
-    public static void main(String args[]) {
+   /* public static void main(String args[]) {
         TreeSet<Character> set1 = new TreeSet<Character>();
         TreeSet<Character> set2 = new TreeSet<Character>();
         set1.add('A');
@@ -83,5 +83,5 @@ public class SetHelper {
         System.out.println("Is set3 a subset of set1? " + isSubset(set3, set1));
         System.out.println("Is set3 a superset of set1? "
                 + isSuperset(set3, set1));
-    }
+    }*/
 }
