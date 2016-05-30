@@ -24,7 +24,7 @@
 </head>
 <body>
 <h2>首页欢迎您!!!!</h2>
-<a href="test/get.html">测试查询方法测试</a>
+<a href="test/get.html">测试查询方法123</a>
 </body>
 </html>
 
