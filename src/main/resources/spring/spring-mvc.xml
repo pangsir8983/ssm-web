@@ -93,20 +93,20 @@
 
 
     <!-- 简单统一异常处理 -->
-    <bean id="simpleMappingExceptionResolver"
+    <!--<bean id="simpleMappingExceptionResolver"
           class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <!-- 默认异常显示页面 -->
+        &lt;!&ndash; 默认异常显示页面 &ndash;&gt;
         <property name="defaultErrorView" value="error/error" />
-        <!-- 通过那个属性获取异常信息 -->
+        &lt;!&ndash; 通过那个属性获取异常信息 &ndash;&gt;
         <property name="exceptionAttribute" value="ex" />
-        <!-- 设置异常映射 -->
+        &lt;!&ndash; 设置异常映射 &ndash;&gt;
         <property name="exceptionMappings">
             <props>
-                <!-- 自定义异常，可根据系统要求自行扩展异常 -->
+                &lt;!&ndash; 自定义异常，可根据系统要求自行扩展异常 &ndash;&gt;
                 <prop key="com.pangsir.app.basic.exception.AppException">error/app</prop>
             </props>
         </property>
-    </bean>
+    </bean>-->
 
 
     <!-- 拦截器[暂时不配置] -->
